@@ -1,4 +1,4 @@
-from models import Population
+from evolution.models import Population
 
 
 class Simulation:

@@ -1,5 +1,5 @@
 from math import sqrt
-from util import generate_normalized_value, generate_random_delta
+from evolution.util import generate_normalized_value, generate_random_delta
 
 
 class Individual:
