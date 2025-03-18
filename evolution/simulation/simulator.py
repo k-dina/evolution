@@ -21,7 +21,7 @@ class Simulation:
                 avg_fitness_str = f"{avg_fitness:.4f}" if avg_fitness else "no date"
                 dispersion = self.pop.get_sd()
                 disp_str = f"{dispersion:.4f}" if dispersion else "no data"
-                print(f"Generation {generation + 1}, Average Fitness: " + avg_fitness_str + " Dispersion: " + disp_str)
+                logger.debug(f"Generation {generation + 1}, Average Fitness: " + avg_fitness_str + " Dispersion: " + disp_str)
             else:
-                print("Everyone died!")
+                logger.debug("Everyone died!")
                 break
