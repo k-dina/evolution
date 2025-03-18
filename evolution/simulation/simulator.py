@@ -6,18 +6,15 @@ logger = getLogger(__name__)
 
 class Simulation:
     def __init__(self, size, lifespan, fit_threshold, num_generations=100):
-        self.pop = Population(size=size, lifespan=lifespan, fit_threshold=fit_threshold)
-        self.pop.save()
+        self.pop = Population.objects.create(size=size, lifespan=lifespan, fit_threshold=fit_threshold)
+        self.pop.generate_population()
         self.generations = num_generations
-        logger.debug(f"Simulation object created! Params: size - {self.pop.size}, lifespan - {self.pop.lifespan}, fit_threshold - {self.pop.fit_threshold}, num_generations - {num_generations}")
+        logger.debug(
+            f"Simulation object created! Params: size - {self.pop.size}, lifespan - {self.pop.lifespan}, fit_threshold - {self.pop.fit_threshold}, num_generations - {num_generations}")
 
     def run(self):
         for generation in range(self.generations):
-            logger.debug(
-                f"Simulation is about to evolve! Params: size - {self.pop.size}, lifespan - {self.pop.lifespan}, fit_threshold - {self.pop.fit_threshold}")
             self.pop.evolve()
-            logger.debug(
-                f"Simulation evolved! Params: size - {self.pop.size}, lifespan - {self.pop.lifespan}, fit_threshold - {self.pop.fit_threshold}")
 
             if self.pop.size:
                 avg_fitness = self.pop.average_fitness

@@ -1,6 +1,9 @@
+from logging import getLogger
 from math import sqrt
 from django.db import models
 from .util import generate_random_delta, generate_normalized_value
+
+logger = getLogger(__name__)
 
 
 class Population(models.Model):
@@ -20,16 +23,15 @@ class Population(models.Model):
 
         parents = []
 
-        individuals = Individual.objects.filter(population=self)  # Получаем индивидов, принадлежащих этой популяции.
+        individuals = Individual.objects.filter(population=self)
 
         for individual in individuals:
             individual.age += 1
-            individual.save()  # Сохраняем изменения.
+            individual.save()
             if individual.is_alive():
                 parents.append(individual)
                 new_average_fitness += individual.fitness
                 new_num += 1
-
         parents.sort(key=lambda x: x.fitness, reverse=True)
 
         next_generation = parents
@@ -41,7 +43,6 @@ class Population(models.Model):
                 speed = (parent1.speed + parent2.speed) / 2
                 intelligence = (parent1.intelligence + parent2.intelligence) / 2
                 child = Individual.objects.create(
-                    lifespan=parent1.lifespan,
                     strength=strength,
                     speed=speed,
                     intelligence=intelligence,
@@ -54,12 +55,11 @@ class Population(models.Model):
             else:
                 break
 
-        # Удаляем старых индивидов.
         Individual.objects.filter(population=self).exclude(pk__in=[ind.pk for ind in next_generation]).delete()
 
         self.average_fitness = new_average_fitness / new_num if new_num else None
         self.size = new_num
-        self.save()  # Сохраняем изменения популяции.
+        self.save()
 
     def get_sd(self):
         n = self.size
