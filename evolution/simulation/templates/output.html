@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulation results</title>
+</head>
+<body>
+    <h1>Simulation Results</h1>
+    {% for log in logs %}
+    <p>{{ log }}</p>
+    {% endfor %}
+    <a href="{% url 'simulation:index' %}">Run Again</a>
+</body>
+</html>
