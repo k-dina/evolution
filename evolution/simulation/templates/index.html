@@ -9,16 +9,16 @@
         <form method="post" action="{% url 'simulation:run_simulation' %}">
             {% csrf_token %}
             <label for="size">Population Size:</label>
-            <input type="number" name="size" id="size" required><br><br>
+            <input type="number" name="size" id="size" value=50><br><br>
 
             <label for="lifespan">Lifespan:</label>
-            <input type="number" name="lifespan" id="lifespan" required><br><br>
+            <input type="number" name="lifespan" id="lifespan" value=3><br><br>
 
             <label for="fit_threshold">Fitness Threshold:</label>
-            <input type="number" step="0.01" name="fit_threshold" id="fit_threshold" required><br><br>
+            <input type="number" step="0.01" name="fit_threshold" id="fit_threshold" value=0><br><br>
 
             <label for="num_generations">Number of Generations:</label>
-            <input type="number" name="num_generations" id="num_generations" required><br><br>
+            <input type="number" name="num_generations" id="num_generations" value=10><br><br>
 
             <button type="submit">Run Simulation</button>
         </form>
